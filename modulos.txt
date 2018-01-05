@@ -1,0 +1,49 @@
+- logisitica
+  1,2,3	- productos o servicios
+  1,2,3	- compras
+  2,3	- produccion o manufactura
+  2,3	- inventarios
+  2,3	- proveedores
+  2,3	- distribuicion
+  2,3	- almacenes
+  1,2,3	- entradas y salidas de productos
+  1,2,3	- clientes - (margen de credito)
+
+- ventas
+  1,2,3	- venta
+  2,3	- proforma
+  3	- ofertas, descuentos y promociones
+
+- caja
+  2,3	- cajas
+		- cierre de caja
+		- entradas y salidas
+
+- contabilidad
+  3	- cuentas por cobrar
+  3	- cuentas por pagar
+  3	- cuentas por pagar progamadas
+  3	- reporte contables
+	
+
+- reportes y estadisticas
+  2,3	- reporte contables
+		- registro de ventas
+		- registro de compras
+		- registro de gastos
+  3	- registro de ventas x vendedores 
+  1,2,3 - resumen (ventas, compras, gastos , calculo de ganancias del periodo)
+  1,2	- indicadores BSC basico
+  3 	- indicadores avanzados
+
+- configuracion del sistema
+  1,2,3	- usuarios
+  1,2,3	- configuracion de impresoras, tablets etc    
+  1,2,3	- subir stock inicial
+      3 - sucursales
+	
+
+
+1 - plan basico
+2 - plan intermedio
+3 - plan total
