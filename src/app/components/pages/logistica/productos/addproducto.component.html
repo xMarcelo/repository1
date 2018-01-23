@@ -1,0 +1,129 @@
+<app-dialogbox [hidden]="!guardando"></app-dialogbox>
+
+<form #forma="ngForm" (ngSubmit)="validar(forma)" novalidate>
+  <div class="row mi-content-responsive">
+    <div class="col-md-6">
+      <div class="form-group">
+        <small  >Producto:</small>
+        <input class="form-control text-uppercase" type="text" ngModel name="descripcion" placeholder="descripcion" autocomplete="off" required>
+      </div>
+      <div class="form-group">
+        <small >Categoria:</small>
+        <app-autocomplete placeholder="Categoria" [dataComplete]="_logisticaService.dataCategoria" (onSelectItem)="onSelectCategoria($event)" [required]="true"></app-autocomplete>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <small  >Precio:</small>
+            <input class="form-control text-uppercase" type="number" (blur)="onBlurMoneda(precio1)" #precio1 pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" ngModel name="precio1" placeholder="Precio" autocomplete="off" required>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <small  >Precio promocional:</small>
+            <input class="form-control text-uppercase" type="number" (blur)="onBlurMoneda(precio2)" #precio2 pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" ngModel name="precio2" placeholder="precio promocional" autocomplete="off" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <small>Marca:</small>
+        <app-autocomplete placeholder="Marca" [dataComplete]="_logisticaService.dataMarcas" (onSelectItem)="onSelectMarca($event)"></app-autocomplete>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" *ngIf="isBoutique">
+        <small  >Composicion:</small>
+        <input class="form-control text-uppercase" type="text" ngModel name="composicion" placeholder="composicion" [required]="isBoutique" autocomplete="on">
+      </div>
+      <div class="form-group">
+        <small  >Caracteristicas:</small>
+        <textarea class="form-control text-uppercase" ngModel  name="caracteristicas" placeholder="CARACTERISTICAS" rows="3" cols="80"></textarea>
+      </div>
+      <div class="form-group">
+        <small  >Otras especificaciones:</small>
+        <textarea class="form-control text-uppercase" ngModel name="especificaciones" placeholder="ESPECIFICACIONES" rows="3" cols="80"></textarea>
+      </div>
+    </div>
+   </div>
+   <ng-container *ngIf="isBoutique">
+   <div class="row mi-content-responsive">
+     <hr class="line">
+     <div class="col-md-6">
+       <form #forma_item="ngForm" (ngSubmit)="insertarItem(forma_item)" novalidate>
+       <div class="row">
+         <div class="col-6">
+           <div class="form-group">
+             <small>Color:</small>
+             <app-autocomplete placeholder="Color" [dataComplete]="_logisticaService.dataColor" (onSelectItem)="onSelectColor($event)" [required]="isBoutique"></app-autocomplete>
+           </div>
+         </div>
+         <div class="col-6">
+           <div class="form-group">
+             <small>Talla:</small>
+             <select class="form-control" (change)="onSelectTalla($event.target.value)" [required]="isBoutique">
+               <option value="">Talla</option>
+               <option [value]="talla.id+'-'+talla.name" *ngFor="let talla of _logisticaService.dataTallas" >{{talla.name}}</option>
+             </select>
+           </div>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-6">
+           <div class="form-group">
+             <small  >Codigo de barras:</small>
+             <input class="form-control text-uppercase" [ngModel]="numAleatorio" name="codigobarras" type="text" placeholder="Codigo de barras" [value]="numAleatorio" autocomplete="off">
+           </div>
+         </div>
+         <div class="col-6">
+           <div class="form-group">
+             <small >Cant:</small>
+             <input class="form-control text-uppercase" type="number" (keyup.enter)="insertarItem(forma_item)" ngModel name="stock"  min="1" value="1" pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" placeholder="Cant" [required]="isBoutique">
+           </div>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-6">
+           <button type="button"class="btn btn-default" (click)="codigoBarras()">Generar Cod Barras</button>
+         </div>
+         <div class="col-6">
+           <button type="submit" class="btn btn-success cursor" [disabled]="!forma_item.valid">Insertar item</button>
+         </div>
+       </div>
+       <div class="invisible">
+         <input type="text" [value]="dtItemAdd.des_color" [ngModel]="dtItemAdd.des_color" name="des_color" [required]="isBoutique">
+         <input type="text" [value]="dtItemAdd.idtalla" [ngModel]="dtItemAdd.idtalla" name="idtalla" [required]="isBoutique">
+       </div>
+       </form>
+     </div>
+     <div class="col-md-6">
+       <table class="table table-1">
+         <thead>
+           <th>Color</th>
+           <th>Talla</th>
+           <th>Cant</th>
+           <th>Cod barras</th>
+         </thead>
+         <tbody>
+           <tr *ngFor="let item of dataTallaColor; let i=index" title="toca para borrar" (click)="borrarItem(i)" class="cursor">
+             <td>{{item.des_color}}</td>
+             <td>{{item.talla}}</td>
+             <td>{{item.cantidad}}</td>
+             <td>{{item.codigobarras}}</td>
+           </tr>
+         </tbody>
+       </table>
+       <p class="text-danger" *ngIf="isItemRepetido">El codigo de barras no deben repetirse.</p>
+     </div>
+   </div>
+   </ng-container>
+  <p class="text-info" *ngIf="!forma.valid">Complete los campos requeridos</p>
+  <hr class="line">
+  <button type="submit" class="btn btn-default btn-lg derecha" [disabled]="!forma.valid || guardando">
+      <i class="fa fa-circle-o-notch fa-spin fa-fw" *ngIf="guardando"></i>
+      Listo, guardar
+  </button>
+
+  <div class="invisible">
+    <input class="invisible" type="text" ngModel name="items_valid"  [required]="!isFormItemValid>
+  </div>
+</form>

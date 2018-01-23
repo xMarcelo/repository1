@@ -32,7 +32,7 @@
 		- registro de compras
 		- registro de gastos
   3	- registro de ventas x vendedores 
-  1,2,3 - resumen (ventas, compras, gastos , calculo de ganancias del periodo)
+  1,2,3 - resumen (ventas, compras, gastos , calculo de ganancias del periodo) - CUENTA DE RESULTADOS (INGRESOS- GASTOS)
   1,2	- indicadores BSC basico
   3 	- indicadores avanzados
 

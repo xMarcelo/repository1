@@ -1,0 +1,13 @@
+<input type="text" class="form-control text-uppercase"
+      [placeholder]="placeholder"
+      [(ngModel)]="model"
+      [ngbTypeahead]="search"
+      [resultFormatter]="formatter"
+      [inputFormatter]="formatter"
+      [showHint]="true"
+      (change)="onChange()"
+      (selectItem)="onItemSelect($event)"
+      [required]="required"
+      />
+<!-- <pre>Model: {{ model | json }}</pre> -->
+<!-- <pre>data: {{ dataComplete | json }}</pre> -->

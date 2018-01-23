@@ -1,0 +1,30 @@
+<div class="mi-content top">
+    <div class="row">
+        <div class="col text-center" *ngIf="frase_dia">
+            <img src="assets/img/gif_dia.gif" width="300" alt="">
+            <h3>{{ frase_dia.frase }}</h3>
+            <p class="text-secundary">- {{ frase_dia.autor }}</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col text-center">
+            <hr class="line">
+            <h5>Notificaciones</h5>
+            <table class="table table-1 cursor">
+                <tr>
+                    <td>Cuentas por pagar <span class="badge badge-warning">5</span></td>
+                </tr>
+                <tr>
+                    <td>Cuentas por cobrar <span class="badge badge-danger">8</span></td>
+                </tr>
+                <tr>
+                    <td>Productos con stock minimo <span class="badge badge-danger">10</span></td>
+                </tr>
+                <tr>
+                    <td>Apuntes - Visitar cliente fuerte <span class="badge badge-info">1</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
