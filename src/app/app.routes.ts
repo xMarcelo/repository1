@@ -9,16 +9,7 @@ import { NopagefoundComponent } from './components/pages/nopagefound/nopagefound
 import { LoginComponent } from './components/pages/login/login.component';
 
 const APP_ROUTES: Routes = [
-  {
-    path: '',
-    component: PagesComponent,
-    children: [
-      { path: 'dashboard', component: HomeComponent  },
-      { path: 'productos', component: ProductosComponent },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
-    ]
-  },
-  { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
   { path: '**', component: NopagefoundComponent }
 
 ];

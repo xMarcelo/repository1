@@ -1,21 +1,22 @@
+// modulos
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
-import { PanelLateralComponent } from './components/shared/panel-lateral.component';
-import { NavbarComponent } from './components/shared/navbar.component';
+import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { PagesModule } from './components/pages/pages.module';
 
 // services
 import { ObservablesService } from './services/observables.service';
 import { FrasesService } from './services/frases.service';
 import { LogisticaService } from './services/logistica.service';
 
-// modulos
-import { PagesModule } from './components/pages/pages.module';
-import { NgModule } from '@angular/core';
+
+// rutas
 import { APP_ROUTING } from './app.routes';
-import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+
+// components
 import { PagesComponent } from './components/pages/pages.component';
+import { AppComponent } from './app.component';
 
 
 

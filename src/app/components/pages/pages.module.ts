@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 // modulos
 import { SharedModule } from '../shared/shared.module';
@@ -19,7 +19,8 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { DialogboxComponent } from '../control/dialogbox/dialogbox.component';
 import { AutocompleteComponent } from '../control/autocomplete/autocomplete.component';
 
-
+// rutas
+import { PAGES_ROUTING } from './pages.routes';
 
 @NgModule({
     declarations: [
@@ -44,11 +45,11 @@ import { AutocompleteComponent } from '../control/autocomplete/autocomplete.comp
     ],
     imports: [
         FormsModule,
-        RouterModule,
         SharedModule,
         ReactiveFormsModule,
         CommonModule,
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        PAGES_ROUTING
     ]
 })
 
