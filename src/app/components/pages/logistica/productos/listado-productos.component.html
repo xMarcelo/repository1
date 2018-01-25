@@ -1,84 +1,84 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Subir fotos</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <hr class="line">
-        <p>La primera foto es la principal. la que se mostrara en la pagina web</p>
-        <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-        <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-        <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-        <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-        <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="subirImage()">Listo, guardar.</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="mi-content-responsive">
-  <div class="row">
-    <div class="col-md-10 pb-2">
-      <input type="text" class="form-control" placeholder="Buscar..." (keyup)="_logisticaService.buscarListadoProductos(txtbuscar.value)" #txtbuscar>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Launch demo modal
+      </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Subir fotos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <hr class="line">
+                    <p>La primera foto es la principal. la que se mostrara en la pagina web</p>
+                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="subirImage()">Listo, guardar.</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-2">
-      <div>
-        <button class="btn btn-success cursor" title="Guardar Cambios" [disabled]="!dataCambios.length" (click)="guardarCambios()">
+
+    <div class="row">
+        <div class="col-md-10 pb-2">
+            <input type="text" class="form-control" placeholder="Buscar..." (keyup)="_logisticaService.buscarListadoProductos(txtbuscar.value)" #txtbuscar>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <button class="btn btn-success cursor" title="Guardar Cambios" [disabled]="!dataCambios.length" (click)="guardarCambios()">
           <i class="" [ngClass]="[!isGuardandoLista ? 'fa fa-floppy-o':'fa fa-circle-o-notch fa-spin fa-fw']"></i>
         </button>
-        <a class="btn btn-info" href="#" title="Imprimir codigo de barras">
-          <i class="fa fa-barcode"></i>
-        </a>
-      </div>
+                <a class="btn btn-info" href="#" title="Imprimir codigo de barras">
+                    <i class="fa fa-barcode"></i>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-  <hr class="line">
-  <br>
-  <table class="table table-1 table-sm" width="100%">
-    <thead>
-      <th>#</th>
-      <th>Descripcion</th>
-      <th>Ubicacion</th>
-      <th>Precio</th>
-      <th>Precio 2</th>
-      <th>Stock</th>
-      <th>Imagen</th>
-      <th>X</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of _logisticaService.datosBusquedaListado; let i=index" class="font14">
-        <td>{{i+1}}</td>
-        <td>{{item.descripcion}}</td>
-        <td>{{item.sede}}</td>
-        <td>
-          <input class="input-edit" type="number" (change)="detectaCambios(item)" (blur)="onBlurMoneda(precio1)" [(ngModel)]="item.precio1" #precio1 pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" name="precio1">
-        </td>
-        <td>
-          <input class="input-edit" type="number" (change)="detectaCambios(item)" (blur)="onBlurMoneda(precio2)" [(ngModel)]="item.precio2" #precio2 pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" name="precio2">
-        </td>
-        <td>
-          <input class="input-edit" type="number" (change)="detectaCambios(item)" [(ngModel)]="item.stock" #stock pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" name="stock">
-        </td>
-        <td>NO</td>
-        <td>X</td>
-      </tr>
-    </tbody>
-  </table>
-  <ng-container *ngIf="!_logisticaService.datosBusquedaListado">
     <hr class="line">
-    <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i></ng-container>
+    <br>
+    <table class="table table-1 table-sm" width="100%">
+        <thead>
+            <th>#</th>
+            <th>Descripcion</th>
+            <th>Ubicacion</th>
+            <th>Precio</th>
+            <th>Precio 2</th>
+            <th>Stock</th>
+            <th>Imagen</th>
+            <th>X</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of _logisticaService.datosBusquedaListado; let i=index" class="font14">
+                <td>{{i+1}}</td>
+                <td>{{item.descripcion}}</td>
+                <td>{{item.sede}}</td>
+                <td>
+                    <input class="input-edit" type="number" (change)="detectaCambios(item)" (blur)="onBlurMoneda(precio1)" [(ngModel)]="item.precio1" #precio1 pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" name="precio1">
+                </td>
+                <td>
+                    <input class="input-edit" type="number" (change)="detectaCambios(item)" (blur)="onBlurMoneda(precio2)" [(ngModel)]="item.precio2" #precio2 pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" name="precio2">
+                </td>
+                <td>
+                    <input class="input-edit" type="number" (change)="detectaCambios(item)" [(ngModel)]="item.stock" #stock pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" name="stock">
+                </td>
+                <td>NO</td>
+                <td>X</td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-container *ngIf="!_logisticaService.datosBusquedaListado">
+        <hr class="line">
+        <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i></ng-container>
 </div>

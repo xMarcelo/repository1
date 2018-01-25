@@ -22,7 +22,7 @@ export class AddproductoComponent implements OnInit {
   numAleatorio = '';
 
   private guardando = false;
-  private dtItemAdd: any = {
+  public dtItemAdd: any = {
     idcategoria: null,
     des_categoria: null,
     idmarca: null,
@@ -31,11 +31,11 @@ export class AddproductoComponent implements OnInit {
     des_color: null,
     idtalla: null,
     des_talla: null
-  }
+  };
 
   private el: HTMLInputElement;
 
-  constructor(private _logisticaService: LogisticaService, private elementRef: ElementRef) {
+  constructor(public _logisticaService: LogisticaService, private elementRef: ElementRef) {
       this.el = this.elementRef.nativeElement;
   }
 

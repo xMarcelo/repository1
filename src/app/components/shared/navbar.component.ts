@@ -1,5 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { ObservablesService } from '../../services/observables.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-navbar',
@@ -9,27 +9,30 @@ import { ObservablesService } from '../../services/observables.service';
 export class NavbarComponent implements OnInit {
 
   private plShow= false;
-  public valOnSize: number = document.documentElement.clientWidth;
-  constructor(private _observablesService: ObservablesService) {
-    this.eventPanelShowSize();
-  }
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.valOnSize = event.target.innerWidth;
-    this.eventPanelShowSize();
-  }
+  @Output() SiderBarShow: EventEmitter<boolean> = new EventEmitter();
 
-  eventPanelShowSize() {
-    this.plShow = this.valOnSize < 768 ? false : true;
-    this._observablesService.panelLaterShow(this.plShow);
+  // public valOnSize: number = document.documentElement.clientWidth;
+  constructor() {
+    // this.eventPanelShowSize();
   }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.valOnSize = event.target.innerWidth;
+  //   this.eventPanelShowSize();
+  // }
+
+  // eventPanelShowSize() {
+  //   this.plShow = this.valOnSize < 768 ? false : true;
+  //   this._observablesService.panelLaterShow(this.plShow);
+  // }
 
   ngOnInit() {
   }
 
   checkPanelLatera() {
     this.plShow = !this.plShow;
-    this._observablesService.panelLaterShow(this.plShow);
+    this.SiderBarShow.emit(this.plShow);
+    // this._observablesService.panelLaterShow(this.plShow);
   }
 
 }

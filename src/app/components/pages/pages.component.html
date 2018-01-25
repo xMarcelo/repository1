@@ -1,5 +1,18 @@
+<!-- <app-navbar></app-navbar>
 <div class="mi-contet-fixed" [ngClass]="{'move': panelLateralEstado}">
-    <app-navbar></app-navbar>
     <app-panel-lateral></app-panel-lateral>
     <router-outlet></router-outlet>
-</div>
+</div> -->
+<app-navbar (SiderBarShow)="siderBarShow($event)"></app-navbar>
+<ng-sidebar-container style="display:block;" class="ng-sidebar-back">
+
+    <ng-sidebar class="ng-sidebar-back" [(opened)]="_opened" mode="push" autoCollapseWidth=500 [closeOnClickOutside]="status_closeOnClickOutside" #pl>
+        <div style="width:250px;">
+            <app-panel-lateral></app-panel-lateral>
+        </div>
+    </ng-sidebar>
+
+    <div ng-sidebar-content>
+        <router-outlet></router-outlet>
+    </div>
+</ng-sidebar-container>;
