@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ObservablesService } from '../../services/observables.service';
 import { BoundElementPropertyAst } from '@angular/compiler';
+import { ObservablesService } from '../../services/service.index';
 
 @Component({
   selector: 'app-pages',
@@ -40,7 +40,7 @@ export class PagesComponent implements OnInit {
       // this._opened = false;
       this.status_closeOnClickOutside = false;
     }
-    console.log(this.status_closeOnClickOutside);
+    // console.log(this.status_closeOnClickOutside);
     // this._opened = this.valOnSize < 768 ? false : true;
     // this.status_closeOnClickOutside = this.valOnSize < 768 ? false : true;
     // // this._observablesService.panelLaterShow(this.plShow);

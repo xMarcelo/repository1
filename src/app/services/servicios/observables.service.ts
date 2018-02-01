@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject  } from "rxjs/BehaviorSubject";
+import { BehaviorSubject  } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ObservablesService {
@@ -9,7 +9,7 @@ export class ObservablesService {
   constructor() { }
 
 
-  panelLaterShow(valor:boolean){
+  panelLaterShow(valor: boolean) {
     this.panelLateralShowSource.next(valor);
   }
 }

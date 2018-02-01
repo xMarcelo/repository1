@@ -5,10 +5,8 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { PagesModule } from './components/pages/pages.module';
 
-// services
-import { ObservablesService } from './services/observables.service';
-import { FrasesService } from './services/frases.service';
-import { LogisticaService } from './services/logistica.service';
+// servicios
+import { ServiceModule } from './services/service.module';
 
 
 // rutas
@@ -30,12 +28,9 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     APP_ROUTING,
     PagesModule,
+    ServiceModule
   ],
-  providers: [
-    ObservablesService,
-    FrasesService,
-    LogisticaService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

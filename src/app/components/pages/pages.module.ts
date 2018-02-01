@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 
 
@@ -22,6 +23,8 @@ import { AutocompleteComponent } from '../control/autocomplete/autocomplete.comp
 
 // rutas
 import { PAGES_ROUTING } from './pages.routes';
+
+
 
 @NgModule({
     declarations: [
@@ -45,6 +48,7 @@ import { PAGES_ROUTING } from './pages.routes';
         // NopagefoundComponent
     ],
     imports: [
+        BrowserModule,
         FormsModule,
         SharedModule,
         ReactiveFormsModule,

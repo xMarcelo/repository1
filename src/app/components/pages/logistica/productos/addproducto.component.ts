@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
-import { LogisticaService } from '../../../../services/logistica.service';
+import { LogisticaService } from '../../../../services/service.index';
 
 @Component({
   selector: 'app-addproducto',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ObservablesService } from '../../services/observables.service';
+import { ObservablesService, SiderbarService } from '../../services/service.index';
 
 @Component({
   selector: 'app-panel-lateral',
@@ -8,7 +8,7 @@ import { ObservablesService } from '../../services/observables.service';
 })
 export class PanelLateralComponent implements OnInit {
   panelLateralEstado = false;
-  constructor(private _observablesService: ObservablesService) {
+  constructor(private _observablesService: ObservablesService, public _sidebar: SiderbarService) {
 
   }
 

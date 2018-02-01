@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,32 +6,16 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styles: []
 })
 export class NavbarComponent implements OnInit {
-
-  private plShow= false;
+  @Input() plShow: boolean= false;
   @Output() SiderBarShow: EventEmitter<boolean> = new EventEmitter();
 
-  // public valOnSize: number = document.documentElement.clientWidth;
-  constructor() {
-    // this.eventPanelShowSize();
-  }
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   this.valOnSize = event.target.innerWidth;
-  //   this.eventPanelShowSize();
-  // }
-
-  // eventPanelShowSize() {
-  //   this.plShow = this.valOnSize < 768 ? false : true;
-  //   this._observablesService.panelLaterShow(this.plShow);
-  // }
-
+  constructor() {}
   ngOnInit() {
   }
 
   checkPanelLatera() {
     this.plShow = !this.plShow;
     this.SiderBarShow.emit(this.plShow);
-    // this._observablesService.panelLaterShow(this.plShow);
   }
 
 }

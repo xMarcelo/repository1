@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { LogisticaService } from '../../../../services/logistica.service';
+import { LogisticaService } from '../../../../services/service.index';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx'; // Map
 
@@ -15,7 +15,7 @@ export class ListadoProductosComponent implements OnInit {
   private dataCambios: any[]= [];
   formData: FormData = new FormData();
 
-  constructor(private _logisticaService: LogisticaService, private elementRef: ElementRef, private http: Http) { }
+  constructor(public _logisticaService: LogisticaService, private elementRef: ElementRef, private http: Http) { }
 
   ngOnInit() {
     this._logisticaService.getListadoProductos();

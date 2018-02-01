@@ -9,16 +9,14 @@
     <hr class="line-menu-2">
     <br>
     <ul class="menu-panel-lateral text-secondary">
-        <li data-toggle="collapse" class="collapsed" data-target="#logistica"><i class="fa fa-cubes" aria-hidden="true"></i> Logisitca</li>
-        <ul class="sub-menu collapse" id="logistica">
-            <li routerLinkActive="activado" [routerLink]="['/productos']">Productos o Servicios</li>
-            <li><a href="#" routerLinkActive="activado">Compras</a></li>
-            <li><a href="#" routerLinkActive="activado">Produccion</a></li>
-            <li><a href="#">Distribuicion</a></li>
-            <li><a href="#">Entradas / Salidas de productos</a></li>
-            <li><a href="#">Clientes</a></li>
-        </ul>
-        <li data-toggle="collapse" class="collapsed" data-target="#ventas"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ventas</li>
+        <li *ngFor="let menu of _sidebar.menu; let i=index" data-toggle="collapse" class="collapsed" [attr.data-target]="'#list'+ i"><i [class]="menu.icono" aria-hidden="true"></i> {{ menu.titulo }}
+            <ul class="sub-menu collapse" id="list{{i}}">
+                <div *ngFor="let submenu of menu.submenu">
+                    <li routerLinkActive="activado" [routerLink]="[submenu.url]">{{submenu.titulo}}</li>
+                </div>
+            </ul>
+        </li>
+        <!-- <li data-toggle="collapse" class="collapsed" data-target="#ventas"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ventas</li>
         <ul class="sub-menu collapse" id="ventas">
             <li><a href="#">Venta</a></li>
             <li><a href="#">Proforma</a></li>
@@ -43,6 +41,6 @@
             <li><a href="#">Generales</a></li>
             <li><a href="#">Usuarios</a></li>
             <li><a href="#">Sucursales</a></li>
-        </ul>
+        </ul> -->
     </ul>
 </div>

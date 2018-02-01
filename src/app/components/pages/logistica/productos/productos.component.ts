@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LogisticaService } from '../../../../services/logistica.service';
+import { LogisticaService } from '../../../../services/service.index';
 
 @Component({
   selector: 'app-productos',
