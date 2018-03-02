@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FrasesService } from '../../../services/service.index';
+import * as swal from 'sweetalert';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { FrasesService } from '../../../services/service.index';
   styles: []
 })
 export class HomeComponent implements OnInit {
-  frase_dia: any[];
+  public frase_dia: any[];
   constructor(private _frasesService: FrasesService) { }
 
   ngOnInit() {
@@ -17,4 +18,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  aaa() {
+    swal('Hello world!');
+  }
 }

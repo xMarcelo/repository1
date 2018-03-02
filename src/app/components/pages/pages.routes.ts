@@ -9,8 +9,8 @@ const pagesRoutes: Routes = [
         path: '',
         component: PagesComponent,
         children: [
-          { path: 'dashboard', component: HomeComponent  },
-          { path: 'productos', component: ProductosComponent },
+          { path: 'dashboard', component: HomeComponent, data: { titulo: 'Dashboard'}  },
+          { path: 'productos', component: ProductosComponent, data: { titulo: 'Producto ó Servicio'} },
           { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
         ]
       }

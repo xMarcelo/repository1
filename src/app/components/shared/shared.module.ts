@@ -5,19 +5,22 @@ import { RouterModule } from '@angular/router';
 
 import { PanelLateralComponent } from './panel-lateral.component';
 import { NavbarComponent } from './navbar.component';
+import { BreadcrumbsComponent } from './breadcrumbs.component';
 
 
 @NgModule({
     declarations: [
         PanelLateralComponent,
-        NavbarComponent
+        NavbarComponent,
+        BreadcrumbsComponent
     ],
     exports: [
         PanelLateralComponent,
-        NavbarComponent
+        NavbarComponent,
+        BreadcrumbsComponent
     ],
     imports: [
-        CommonModule,
+        CommonModule,    
         RouterModule
     ]
 })

@@ -86,27 +86,13 @@
         padding-left: 250px;
     }
     /* arregla el scroll del body ->2scroll*/
-    
-    html,
+    /* html,
     body {
-        top: 0px !important;
-        margin: 0px !important;
-        padding: 0px !important;
         height: 100% !important;
         width: 100% !important;
         overflow: hidden !important;
         z-index: 0 !important;
-    }
-    
-    .demo-header {
-        align-items: center;
-        background: blue;
-        box-shadow: 0 0.1em 1.5em rgba(grey, 0.5);
-        color: white;
-        display: flex;
-        padding: 1em;
-        width: 100% !important;
-    }
+    } */
     
     .ng-sidebar {
         z-index: 1 !important;
@@ -128,8 +114,7 @@
         top: 0px !important;
         z-index: 1 !important;
     } */
-    
-    .pl-navbar-sdshow {
+    /* .pl-navbar-sdshow {
         padding-left: 250px;
         -webkit-transition: all 0.3s ease;
         -moz-transition: all 0.3s ease;
@@ -138,7 +123,7 @@
     
     .pl-navbar-sdshow.move {
         padding-left: 0px;
-    }
+    } */
     
     .mi-panel-lateral {
         /*background-color: blue;
@@ -204,19 +189,19 @@
     .menu-panel-lateral .sub-menu li.activado {
         background: #34374C;
         border-left: 5px solid #EE2B47;
-        padding-left: 38px;
+        padding-left: 25px;
         outline: none;
     }
     
     .menu-panel-lateral .sub-menu li {
         line-height: 35px;
-        padding-left: 43px;
+        padding-left: 30px;
         border-bottom: none;
         font-weight: 300;
     }
     
     .menu-panel-lateral .sub-menu li:hover {
-        padding-left: 38px;
+        padding-left: 25px;
     }
     
     .menu-panel-lateral a {

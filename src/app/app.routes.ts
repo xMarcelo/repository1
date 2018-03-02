@@ -7,10 +7,13 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { ProductosComponent } from './components/pages/logistica/productos/productos.component';
 import { NopagefoundComponent } from './components/pages/nopagefound/nopagefound.component';
 import { LoginComponent } from './components/pages/login/login.component';
+import { RegisterComponent } from './components/pages/login/register/register.component';
+
 
 const APP_ROUTES: Routes = [
     { path: 'login', component: LoginComponent },
-  { path: '**', component: NopagefoundComponent }
+    { path: 'registrar', component: RegisterComponent },
+    { path: '**', component: NopagefoundComponent }
 
 ];
 
