@@ -1,0 +1,50 @@
+<div class="mi-content content">
+    <div class="row">
+        <div class="col-12">
+            <input class="form-control" type="text" placeholder="buscar" #termino (keyup)="buscar(termino.value)">
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-12">
+            <h4>Usuarios del sistema ({{ total_registros }})</h4>
+            <ng-container *ngIf="loading">
+                <div class="animated fadeIn">
+                    <div class="text-center bg-warning fa-3x">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!loading" class="animated fadeIn">
+                <div class="animated fadeIn">
+                    <table class="table table-hover">
+                        <thead>
+                            <th>#</th>
+                            <th>Nombres</th>
+                            <th>DNI</th>
+                            <th>Cargo</th>
+                            <th>Usuario</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let usuario of dt_usuarios; let i=index">
+                                <td>{{ desde + i + 1 }}</td>
+                                <td>{{usuario.nombres}}</td>
+                                <td>{{usuario.dni}}</td>
+                                <td>{{usuario.cargo}}</td>
+                                <td>{{usuario.usuario}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-container>
+            <br>
+            <button class="btn btn-default" (click)="movePag(-10)">
+              Anterior
+            </button>
+            <button class="btn btn-default" (click)="movePag(10)">
+                Siguiente
+            </button>
+        </div>
+    </div>
+</div>

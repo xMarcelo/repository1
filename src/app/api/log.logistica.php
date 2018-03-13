@@ -52,7 +52,7 @@ session_start();
 				$sql_producto="insert into producto (idorg,idsede,idcategoria,idmarca,descripcion,composicion,caracteristicas,especificaciones) values (".$_SESSION['idorg'].",".$_SESSION['idsede'].",".$idcategoria.",".$idmarca.",'".$dtProducto['descripcion']."','".$dtProducto['composicion']."','".$dtProducto['caracteristicas']."','".$dtProducto['especificaciones']."')";
 				$idproducto=$bd->xConsulta_UltimoId($sql_producto);
 
-        //detalle del producto
+        		//detalle del producto
 				$sql_producto_detalle="";
 				$sql_prodcuto_stock="";
 				$cadena_color="";

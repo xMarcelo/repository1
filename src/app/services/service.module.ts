@@ -5,14 +5,17 @@ import {
   ObservablesService,
   LogisticaService,
   SiderbarService,
-  UsuarioService } from './service.index';
+  UsuarioService,
+  LoginGuardGuard,
+  UploadfileService} from './service.index';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   providers: [
-    FrasesService, ObservablesService, LogisticaService, SiderbarService, UsuarioService
+    FrasesService, ObservablesService, LogisticaService, SiderbarService, UsuarioService,
+    LoginGuardGuard, UploadfileService
   ],
   declarations: []
 })

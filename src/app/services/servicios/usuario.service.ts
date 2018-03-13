@@ -1,14 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
-import { cleanSession } from 'selenium-webdriver/safari';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UsuarioService {
+  usuario: any;
+  token: string;
+  constructor(private http: HttpClient, private router: Router) {
+    this.cargarStorage();
+    // console.log('servicio usuario listo para usarse');
+  }
 
-  constructor(private http: HttpClient) {
-    console.log('servicio usuario listo para usarse');
+  logOut() {
+    this.token = '';
+    this.usuario = null;
+    localStorage.removeItem('wp::token');
+    localStorage.removeItem('wp::us');
+    localStorage.removeItem('wp::id');
+
+    this.router.navigate(['/login']);
+  }
+
+  estaLogueado() {
+    return ( this.token.length > 5 ) ? true : false;
+  }
+
+  cargarStorage() {
+    if ( localStorage.getItem('wp::token') ) {
+      this.token = localStorage.getItem('wp::token');
+      this.usuario = JSON.parse(localStorage.getItem('wp::us'));
+    }else {
+      this.token = '';
+      this.usuario = null;
+    }
   }
 
   login (dt_usuario: any) {
@@ -21,25 +47,29 @@ export class UsuarioService {
 
     return this.http.post( url, dt_usuario )
           .map((resp: any) => {
-            localStorage.setItem('wp::id', resp.id);
+            localStorage.setItem('wp::id', resp.idusuario);
             localStorage.setItem('wp::token', resp.token);
             localStorage.setItem('wp::us', JSON.stringify(resp.usuario));
-          });
 
-    if ( dt_usuario.recuerdame === true ) {
-       localStorage.setItem('wp::us', email);
-       localStorage.setItem('wp::us', email);
-    }
+            this.token = resp.token;
+            this.usuario = resp.usuario;
+          });
   }
 
   crearUsuario(dt_usuario: object) {
     const url = URL_SERVICIOS + 'apigen/registrarusuario/usuario';
-    console.log('data', dt_usuario);
+    // console.log('data', dt_usuario);
     return this.http.post( url, dt_usuario )
       .map((resp: any) => {
         // swal('Usuario creado correctamente', {buttons: false,timer: 2000, icon: 'success'});
         return resp;
       });
+  }
+
+  loadUsuarios(desde: number = 0, filas: number = 10, condiciones: string = '') {
+    const url = URL_SERVICIOS + 'apigen/usuario?desde=' + desde + '&filas=' + filas;
+    console.log(url);
+    return this.http.get(url, { headers: new HttpHeaders().set('condiciones', condiciones) });
   }
 
 }

@@ -26,7 +26,7 @@ export class SiderbarService {
     },
     {
       titulo: 'Caja',
-      icono: 'fa fa-usd',
+      icono: 'fas fa-dollar-sign',
       submenu: [
         {titulo: 'Ingreso / egresos', url: '/iecaja'},
         {titulo: 'Cierre de caja', url: '/cierrecaja'},
@@ -36,7 +36,7 @@ export class SiderbarService {
     },
     {
       titulo: 'Reportes e Indicadores',
-      icono: 'fa fa-bar-chart',
+      icono: 'fas fa-chart-bar',
       submenu: [
         {titulo: 'Resumen de opertivo', url: '/resumen-operativo'},
         {titulo: 'Indicadores basicos', url: '/indicadores-basicos'},

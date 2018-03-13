@@ -10,21 +10,22 @@
         <router-outlet></router-outlet>
     </div>
 </ng-sidebar-container> -->
+<div class="animated fadeIn">
+    <ng-sidebar-container style="height: 100vh;">
 
-<ng-sidebar-container style="height: 100vh;">
+        <!-- A sidebar -->
+        <ng-sidebar [(opened)]="_opened" mode="push" autoCollapseWidth=500 [closeOnClickOutside]="status_closeOnClickOutside">
+            <div style="width:250px;">
+                <app-panel-lateral></app-panel-lateral>
+            </div>
+        </ng-sidebar>
 
-    <!-- A sidebar -->
-    <ng-sidebar [(opened)]="_opened" mode="push" autoCollapseWidth=500 [closeOnClickOutside]="status_closeOnClickOutside">
-        <div style="width:250px;">
-            <app-panel-lateral></app-panel-lateral>
+        <!-- Page content -->
+        <div ng-sidebar-content>
+            <app-navbar (SiderBarShow)="siderBarShow($event)" [plShow]="_opened"></app-navbar>
+            <app-breadcrumbs></app-breadcrumbs>
+            <router-outlet></router-outlet>
         </div>
-    </ng-sidebar>
 
-    <!-- Page content -->
-    <div ng-sidebar-content>
-        <app-navbar (SiderBarShow)="siderBarShow($event)" [plShow]="_opened"></app-navbar>
-        <app-breadcrumbs></app-breadcrumbs>
-        <router-outlet></router-outlet>
-    </div>
-
-</ng-sidebar-container>
+    </ng-sidebar-container>
+</div>

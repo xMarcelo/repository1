@@ -9,12 +9,16 @@
     <hr class="line-menu-2">
     <br>
     <ul class="menu-panel-lateral text-secondary">
-        <li *ngFor="let menu of _sidebar.menu; let i=index" data-toggle="collapse" class="collapsed" [attr.data-target]="'#list'+ i"><i [class]="menu.icono" aria-hidden="true"></i> {{ menu.titulo }}
+        <li *ngFor="let menu of _sidebar.menu; let i=index">
+            <div data-toggle="collapse" class="collapsed" [attr.data-target]="'#list'+ i"><i [class]="menu.icono" aria-hidden="true"></i> {{menu.titulo}}</div>
             <ul class="sub-menu collapse" id="list{{i}}">
                 <div *ngFor="let submenu of menu.submenu">
                     <li routerLinkActive="activado" [routerLink]="[submenu.url]">{{submenu.titulo}}</li>
                 </div>
             </ul>
+        </li>
+        <li data-toggle="collapse" class="collapsed" attr.data-target="logout" (click)="_usuarioService.logOut()">
+            <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Cerrar sesion
         </li>
     </ul>
 </div>

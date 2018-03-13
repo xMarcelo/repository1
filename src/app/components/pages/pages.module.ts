@@ -18,6 +18,9 @@ import { LoginComponent } from './login/login.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { RegisterComponent } from './login/register/register.component';
 
+// maestros
+import { UsuariosComponent } from './maestros/usuarios/usuarios.component';
+
 // controles
 import { DialogboxComponent } from '../control/dialogbox/dialogbox.component';
 import { AutocompleteComponent } from '../control/autocomplete/autocomplete.component';
@@ -38,7 +41,8 @@ import { PAGES_ROUTING } from './pages.routes';
         NopagefoundComponent,
         DialogboxComponent,
         AutocompleteComponent,
-        RegisterComponent
+        RegisterComponent,
+        UsuariosComponent
     ],
     exports: [
         // PagesComponent
@@ -61,4 +65,4 @@ import { PAGES_ROUTING } from './pages.routes';
     ]
 })
 
-export class PagesModule {}
+export class PagesModule { }

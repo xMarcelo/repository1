@@ -1,8 +1,8 @@
-<div class="mi-content-responsive">
+<div class="mi-content-responsive animated fastIn">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
         Launch demo modal
-      </button>
+      </button> -->
 
 
     <!-- Modal -->
@@ -16,13 +16,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <hr class="line">
                     <p>La primera foto es la principal. la que se mostrara en la pagina web</p>
-                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event,0)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event,1)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event,2)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event,3)" accept="image/*" class="form-control">
+                    <input type="file" (change)="xupload($event,4)" accept="image/*" class="form-control">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -62,7 +61,7 @@
                     <th>X</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of _logisticaService.datosBusquedaListado; let i=index" class="font14">
+                    <tr *ngFor="let item of _logisticaService.datosBusquedaListado; let i=index" class="font14" (click)="itemSelect(item)">
                         <td>{{i+1}}</td>
                         <td>{{item.descripcion}}</td>
                         <td>{{item.sede}}</td>
@@ -75,7 +74,8 @@
                         <td>
                             <input class="input-edit" type="number" (change)="detectaCambios(item)" [(ngModel)]="item.stock" #stock pattern="(^\d*\.?\d*[0-9]+\d*$)|(^[0-9]+\d*\.\d*$)" name="stock">
                         </td>
-                        <td>NO</td>
+                        <td data-toggle="modal" data-target="#exampleModalCenter" *ngIf="!item.img"><a class="cursor text-danger">NO</a></td>
+                        <td data-toggle="modal" data-target="#exampleModalCenter" *ngIf="item.img"><a class="cursor text-success">SI</a></td>
                         <td>X</td>
                     </tr>
                 </tbody>
