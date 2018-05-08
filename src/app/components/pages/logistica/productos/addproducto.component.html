@@ -1,5 +1,3 @@
-<app-dialogbox [hidden]="!guardando"></app-dialogbox>
-
 <form #forma="ngForm" (ngSubmit)="validar(forma)" novalidate>
     <div class="row mi-content-responsive">
         <div class="col-md-6">
@@ -61,9 +59,9 @@
                             <div class="form-group">
                                 <small>Talla:</small>
                                 <select class="form-control" (change)="onSelectTalla($event.target.value)" [required]="isBoutique">
-               <option value="">Talla</option>
-               <option [value]="talla.id+'-'+talla.name" *ngFor="let talla of _logisticaService.dataTallas" >{{talla.name}}</option>
-             </select>
+                                    <option value="">Talla</option>
+                                    <option [value]="talla.id+'-'+talla.name" *ngFor="let talla of _logisticaService.dataTallas" >{{talla.name}}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -118,12 +116,16 @@
     </ng-container>
     <p class="text-info" *ngIf="!forma.valid">Complete los campos requeridos</p>
     <hr class="line">
-    <button type="submit" class="btn btn-default btn-lg derecha" [disabled]="!forma.valid || guardando">
+    <button *ngIf="isBoutique" type="submit" class="btn btn-default btn-lg derecha" [disabled]="!isFormItemValid  || !forma.valid || guardando">
+        <i class="fa fa-circle-o-notch fa-spin fa-fw" *ngIf="guardando"></i>
+        Listo, guardar
+      </button>
+    <button *ngIf="!isBoutique" type="submit" class="btn btn-default btn-lg derecha" [disabled]="!forma.valid || guardando">
       <i class="fa fa-circle-o-notch fa-spin fa-fw" *ngIf="guardando"></i>
       Listo, guardar
-  </button>
+    </button>
 
     <div class="invisible">
-        <input class="invisible" type="text" ngModel name="items_valid" [required]="!isFormItemValid>
-  </div>
+        <input class="invisible" type="text" ngModel name="items_valid" [required]="!isFormItemValid">
+    </div>
 </form>

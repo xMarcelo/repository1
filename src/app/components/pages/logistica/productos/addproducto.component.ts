@@ -3,6 +3,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
 import { LogisticaService } from '../../../../services/service.index';
+import { IS_BOUTIQUE, DIALOG_LOADING } from '../../../../config/config';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addproducto',
@@ -16,12 +18,12 @@ import { LogisticaService } from '../../../../services/service.index';
 })
 export class AddproductoComponent implements OnInit {
   dataTallaColor: any= [];
-  isBoutique = true;
+  isBoutique: boolean = IS_BOUTIQUE;
   isItemRepetido = false;
   isFormItemValid = false;
   numAleatorio = '';
 
-  private guardando = false;
+  public guardando = false;
   public dtItemAdd: any = {
     idcategoria: null,
     des_categoria: null,
@@ -97,10 +99,12 @@ export class AddproductoComponent implements OnInit {
                               'idtalla': this.dtItemAdd.idtalla, 'talla': this.dtItemAdd.des_talla,
                               'cantidad': forma_item.value.stock, 'codigobarras': forma_item.value.codigobarras});
 
+    this.isFormItemValid = true;
+
   }
 
   validarEntradaItem(codigobarras: string): boolean {
-    for (let key in this.dataTallaColor) {
+    for (const key in this.dataTallaColor) {
         if (this.dataTallaColor[key].codigobarras === codigobarras) { return true; }
     }
     return false;
@@ -116,13 +120,14 @@ export class AddproductoComponent implements OnInit {
     const dtProducto = btoa(JSON.stringify(forma.value));
     const dtItem = btoa(JSON.stringify(this.dataTallaColor));
 
+    swal(DIALOG_LOADING);
     this._logisticaService.guardarProducto(dtProducto, dtItem)
-        .subscribe(res => {
-          // console.log(res);
+        .subscribe((res: any) => {
           if (!res.success) {alert(res.error); this.guardando = false; return; }
           forma.resetForm();
           this.dataTallaColor = [];
           this.guardando = false;
-        })
+          swal.close();
+        });
   }
 }

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import 'rxjs/Rx'; // Map
-
 @Injectable()
 export class LogisticaService {
   private dataProductos: any[];
@@ -42,24 +40,26 @@ export class LogisticaService {
   guardarProducto(dataProducto: string, dataItem: string) {
     const url = `${this.urlApiLogistica}?op=5&dtP=${dataProducto}&dtI=${dataItem}`;
     return this.http.get(url).map(res => res.json());
+    // return this.http.get(url).subscribe(res => console.log(res));
+    // return this.http.get(url).map(res => console.log(res));
   }
 
 
   // TODO: PARA LISTADO DE PRODCUTOS
-  getListadoProductos(){
-    let url=`${this.urlApiLogistica}?op=6`;
+  getListadoProductos() {
+    const url = `${this.urlApiLogistica}?op=6`;
     // return this.http.get(url).map(res=>res.json());
-    this.http.get(url).map(res=>res).subscribe(res=>{
-      this.dataListadoProductos=res.json().datos;
-      this.datosBusquedaListado=this.dataListadoProductos;});
+    this.http.get(url).map(res => res).subscribe(res => {
+      this.dataListadoProductos = res.json().datos;
+      this.datosBusquedaListado = this.dataListadoProductos; });
   }
 
-  buscarListadoProductos(val:string){
-    this.datosBusquedaListado=this.dataListadoProductos.filter(v => v.txt_buscar.toLowerCase().indexOf(val.toLowerCase()) > -1)
+  buscarListadoProductos(val: string) {
+    this.datosBusquedaListado = this.dataListadoProductos.filter(v => v.txt_buscar.toLowerCase().indexOf(val.toLowerCase()) > -1);
   }
 
-  guardarCambisListaProductos(data:string){
-    const url =`${this.urlApiLogistica}?op=7&dtP=${data}`;
+  guardarCambisListaProductos(data: string) {
+    const url = `${this.urlApiLogistica}?op=7&dtP=${data}`;
     return this.http.get(url).map((res) => res.json());
   }
 

@@ -1,0 +1,116 @@
+<div class="mi-content-responsive animated fastIn">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Distribuir desde:</h5>
+                    <p class="card-text">Seleccione almacen de origen</p>
+                    <select class="form-control" (change)="onSelectAlmacenOrigen($event.target.value)">
+                        <option *ngFor="let sede of dtSedes" [value]="sede.idsede">{{sede.descripcion}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">A:</h5>
+                    <p class="card-text">Seleccione almacen destino</p>
+                    <select class="form-control" #almacenDestino>
+                        <option *ngFor="let sede of dtSedes | filtrarArray : ['idsede' , valIdAlmacenOrigen, false]" [value]="sede.idsede">{{sede.descripcion}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Productos</h5>
+                    <p class="card-text">Seleccione los productos que se va a distribuir.
+                        <a data-toggle="collapse" href="#collapseExample" aria-controls="collapseExample"> Mas opciones.</a></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    <div class="form-group">
+                                        <select class="form-control" (change)="lectorCodigoBarra=!lectorCodigoBarra"> 
+                                            <option value="false">Escribir la descripcion o codigo de barras</option>
+                                            <option value="true">Utilizar lector de codigo de barras</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" (change)="cantidadPedeterminado=!cantidadPedeterminado"> 
+                                                <option value="1">Definir cantidad</option>
+                                                <option value="2">Cantidad prederminada a uno(1)</option>
+                                            </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Listo </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <ng-container *ngIf="lectorCodigoBarra; then conCB; else sinCB"></ng-container>
+                                <ng-template #conCB>
+                                    <input type="text" class="form-control" placeholder="Solo codigo de barras" (keyup.enter)="onChangeSelectProducto(txt_codigobarra.value)" #txt_codigobarra>
+                                    <p class="text-danger" *ngIf="!this.dtProductos">No se encontro ningun producto.</p>
+                                </ng-template>
+                                <ng-template #sinCB>
+                                    <app-autocomplete name="producto" #parametro placeholder="Descripcion o codigo de barra" [dataComplete]="dtProductos" (onSelectItem)="onSelectProducto($event)" (keyup)="onChangeSelectProducto(parametro.model)"></app-autocomplete>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="cantidad" [value]="selectStock" [max]="selectStock" [min]="1" (keyup)="validarStock(txt_stock.value)" (change)="validarStock(txt_stock.value)" (mouseup)="validarStock(txt_stock.value)" #txt_stock
+                                    id="txt_stock" [disabled]="cantidadPedeterminado" (keyup.enter)="addProductoLista()">
+                                <label for="txt_stock" class="text-danger text-center" *ngIf="!cantidadValida">Solo hay {{selectStock}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-default" [disabled]="!cantidadValida || !itemSelect" (click)="addProductoLista()">Agregar</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngIf="dtProductosMostrar">
+                                        <tr *ngFor="let item of dtProductosMostrar | enumerarList; let i=index">
+                                            <ng-container *ngIf="item">
+                                                <th scope="row">{{ item.num }}</th>
+                                                <td>{{ item.name | uppercase}}</td>
+                                                <td>{{ item.cantidad }}</td>
+                                                <td class="cursor" (click)="borrarProductoLista(item.idproducto_detalle)"><i class="fa fa-trash-alt" aria-hidden="true" title="Borrar"></i></td>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <br>
+                            <hr class="line">
+                            <button class="btn btn-default" (click)="guardarDistribuicion()" [disabled]="!dtProductosMostrar"><i class="fa fa-save" aria-hidden="true"></i> Guardar distribuicion</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

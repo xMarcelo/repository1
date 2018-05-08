@@ -35,6 +35,9 @@ export class UploadfileService {
       };
       // otros valores del body a enviar
       formData.append('path', ruta);
+      formData.append('tabla', 'producto_detalle');
+      formData.append('id', id);
+      formData.append('campoupdate', 'img');
 
 
       const url = URL_SERVICIOS + 'upload';

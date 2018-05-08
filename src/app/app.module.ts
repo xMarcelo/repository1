@@ -16,8 +16,6 @@ import { APP_ROUTING } from './app.routes';
 import { PagesComponent } from './components/pages/pages.component';
 import { AppComponent } from './app.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent

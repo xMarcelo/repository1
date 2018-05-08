@@ -49,7 +49,7 @@ session_start();
 				}
 
 				//obtenemos el idproducto
-				$sql_producto="insert into producto (idorg,idsede,idcategoria,idmarca,descripcion,composicion,caracteristicas,especificaciones) values (".$_SESSION['idorg'].",".$_SESSION['idsede'].",".$idcategoria.",".$idmarca.",'".$dtProducto['descripcion']."','".$dtProducto['composicion']."','".$dtProducto['caracteristicas']."','".$dtProducto['especificaciones']."')";
+				$sql_producto="insert into producto (idorg,idcategoria,idmarca,descripcion,composicion,caracteristicas,especificaciones) values (".$_SESSION['idorg'].",".$idcategoria.",".$idmarca.",'".$dtProducto['descripcion']."','".$dtProducto['composicion']."','".$dtProducto['caracteristicas']."','".$dtProducto['especificaciones']."')";
 				$idproducto=$bd->xConsulta_UltimoId($sql_producto);
 
         		//detalle del producto
@@ -71,26 +71,28 @@ session_start();
 					$cadena_color=$cadena_color.','.$item['des_color'];
 
 					//producto_detalle
-					$sql_producto_detalle=$sql_producto_detalle."(".$idproducto.",".$idcolor.",".$item['idtalla'].",'".$item['codigobarras']."','".$dtProducto['precio1']."','".$dtProducto['precio2']."'),";
+					$sql_producto_detalle=$sql_producto_detalle."(".$idproducto.",".$_SESSION['idorg'].",".$_SESSION['idsede'].",".$idcolor.",".$item['idtalla'].",'".$item['codigobarras']."','".$dtProducto['precio1']."','".$dtProducto['precio2']."',".$item['cantidad']."),";
 
 					//producto_stock
-					$sql_prodcuto_stock=$sql_prodcuto_stock."(".$idproducto.",".$_SESSION['idorg'].",".$_SESSION['idsede'].",".$item['cantidad'].",".$idproducto.$idcolor.$item['idtalla']."),";
+					// $sql_prodcuto_stock=$sql_prodcuto_stock."(".$idproducto.",".$_SESSION['idorg'].",".$_SESSION['idsede'].",".$item['cantidad'].",".$idproducto.$idcolor.$item['idtalla']."),";
 				}
 				$sql_producto_detalle=substr($sql_producto_detalle,0,-1);
-				$sql_producto_detalle="insert into producto_detalle (idproducto,idcolor,idtalla,codigobarras,precio1,precio2) values ".$sql_producto_detalle;
+				$sql_producto_detalle="insert into producto_detalle (idproducto, idorg, idsede,idcolor,idtalla,codigobarras,precio1,precio2,stock_ini) values ".$sql_producto_detalle;				
+				// $sql_prodcuto_stock=substr($sql_prodcuto_stock,0,-1);
+				// $sql_prodcuto_stock="insert into producto_stock (idproducto,idorg,idsede,stock,idcodboutique) values ".$sql_prodcuto_stock;
 
-				$sql_prodcuto_stock=substr($sql_prodcuto_stock,0,-1);
-				$sql_prodcuto_stock="insert into producto_stock (idproducto,idorg,idsede,stock,idcodboutique) values ".$sql_prodcuto_stock;
-
-				$bd->xMultiConsulta($sql_producto_detalle."; ".$sql_prodcuto_stock);
+				// $bd->xMultiConsulta($sql_producto_detalle."; ".$sql_prodcuto_stock);
+				//echo $sql_producto_detalle;
+				$bd->xMultiConsulta($sql_producto_detalle."; ");
 				break;
 
 		case 6://listado de producto
 			$sql="
-			SELECT p.idproducto,pd.idproducto_detalle,pds.idproducto_stock,pds.idcodboutique,pds.idsede,upper(concat(p.descripcion,' | ',co.descripcion,' | ',ta.descripcion,' | ',m.descripcion)) AS descripcion,s.descripcion AS sede,format(pd.precio1,2) AS precio1,format(pd.precio2,2) AS precio2,pds.stock,pd.img,upper(concat(p.descripcion,' | ',co.descripcion,' | ',ta.descripcion,' | ',m.descripcion,' | ',s.descripcion)) AS txt_buscar
+			SELECT p.idproducto,pd.idproducto_detalle,pds.idproducto_stock,pds.idcodboutique,pds.idsede,upper(concat(p.descripcion,' | ',co.descripcion,' | ',ta.descripcion,' | ',m.descripcion)) AS descripcion,s.descripcion AS sede,format(pd.precio1,2) AS precio1,format(pd.precio2,2) AS precio2,pds.stock,pd.img,upper(concat(p.descripcion,' | ',co.descripcion,' | ',ta.descripcion,' | ',m.descripcion,' | ',s.descripcion)) AS txt_buscar,
+					pd.codigobarras
 					FROM producto AS p
 					INNER JOIN producto_detalle AS pd ON pd.idproducto=p.idproducto
-					INNER JOIN producto_stock AS pds ON pds.idcodboutique=concat(p.idproducto,pd.idcolor,pd.idtalla)
+					INNER JOIN producto_stock AS pds ON pds.idproducto_detalle=pd.idproducto_detalle
 					INNER JOIN sede AS s ON s.idsede=pds.idsede
 					INNER JOIN marca AS m ON m.idmarca=p.idmarca
 					INNER JOIN categoria AS cat ON cat.idcategoria=p.idcategoria

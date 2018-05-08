@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { Router } from '@angular/router';
+import { ErroresService } from './errores.service';
+
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class UsuarioService {
   usuario: any;
   token: string;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private _errorService: ErroresService) {
     this.cargarStorage();
     // console.log('servicio usuario listo para usarse');
   }
@@ -53,6 +58,10 @@ export class UsuarioService {
 
             this.token = resp.token;
             this.usuario = resp.usuario;
+          }). catch (err => {
+            console.log('error', err);
+            this._errorService.manejador(err, false);
+            return Observable.throw(err);
           });
   }
 
@@ -69,7 +78,7 @@ export class UsuarioService {
   loadUsuarios(desde: number = 0, filas: number = 10, condiciones: string = '') {
     const url = URL_SERVICIOS + 'apigen/usuario?desde=' + desde + '&filas=' + filas;
     console.log(url);
-    return this.http.get(url, { headers: new HttpHeaders().set('condiciones', condiciones) });
+    return this.http.get(url, { headers: {'otrosDatos': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ=='}} );
   }
 
 }

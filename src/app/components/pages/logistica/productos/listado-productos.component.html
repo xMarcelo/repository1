@@ -10,23 +10,44 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Subir fotos</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Imagenes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                 </div>
-                <div class="modal-body">
-                    <p>La primera foto es la principal. la que se mostrara en la pagina web</p>
-                    <input type="file" (change)="xupload($event,0)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event,1)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event,2)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event,3)" accept="image/*" class="form-control">
-                    <input type="file" (change)="xupload($event,4)" accept="image/*" class="form-control">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" (click)="subirImage()">Listo, guardar.</button>
-                </div>
+                <ng-container *ngIf="!itemSiImg">
+                    <div class="modal-body">
+                        <p>La primera foto es la principal. la que se mostrara en la pagina web</p>
+                        <input type="file" (change)="xupload($event,0)" accept="image/*" class="form-control">
+                        <input type="file" (change)="xupload($event,1)" accept="image/*" class="form-control">
+                        <input type="file" (change)="xupload($event,2)" accept="image/*" class="form-control">
+                        <input type="file" (change)="xupload($event,3)" accept="image/*" class="form-control">
+                        <input type="file" (change)="xupload($event,4)" accept="image/*" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" (click)="subirImage()">Listo, guardar.</button>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="itemSiImg">
+                    <div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6" *ngFor="let imagen of itemImgArray">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <img [src]="imagen | img" class="img-size-content">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" (click)="itemSiImg=false">Reemplazar</button>
+                    </div>
+                </ng-container>
             </div>
         </div>
     </div>
@@ -37,11 +58,12 @@
         <div class="col-md-2">
             <div>
                 <button class="btn btn-success cursor" title="Guardar Cambios" [disabled]="!dataCambios.length" (click)="guardarCambios()">
-          <i class="" [ngClass]="[!isGuardandoLista ? 'fa fa-floppy-o':'fa fa-circle-o-notch fa-spin fa-fw']"></i>
-        </button>
-                <a class="btn btn-info" href="#" title="Imprimir codigo de barras">
+                    <i class="" [ngClass]="[!isGuardandoLista ? 'fa fa-floppy-o':'fa fa-circle-o-notch fa-spin fa-fw']"></i>
+                </button>
+                <a class="btn btn-info" title="Imprimir codigo de barras" (click)="imprimirCodBarra()">
                     <i class="fa fa-barcode"></i>
                 </a>
+                <button (click)="SelectAllItems()">Seleccionar todos</button>
             </div>
         </div>
     </div>
@@ -62,7 +84,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of _logisticaService.datosBusquedaListado; let i=index" class="font14" (click)="itemSelect(item)">
-                        <td>{{i+1}}</td>
+                        <td><input class="form-check-input cursor" type="checkbox" id="check" #check [attr.data-id]="i"> {{i+1}}</td>
                         <td>{{item.descripcion}}</td>
                         <td>{{item.sede}}</td>
                         <td>
@@ -80,10 +102,32 @@
                     </tr>
                 </tbody>
             </table>
+            <br>
+            <table id="codbarraprint" #codbarraprint class="no-visible">
+                <tr *ngFor="let item of itemsPrintCodBarra; let i=index" class="text-center" align="center">
+                    <div *ngIf="item">
+                        <td *ngFor="let cant of item.stock | deNumAarray" class=" text-center " style="text-align:center; line-height:2px;">
+                            <span id="titulo " style="font-size:8px; ">{{item.descripcion}}</span>
+                            <h1 class="xCodBarra " id="CodBarra " style="font-family: 'Barcode 3 of 9'; src:url(bar3of9.TTF); "> *{{item.codigobarras}}*</h1>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p style="font-size:15px; line-height:10px;" class="bold">S/. {{item.precio1}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <div class="float-right">
+                                        <span id="titulo " style="font-size:10px; ">{{item.codigobarras}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </div>
+                </tr>
+            </table>
         </div>
+
     </div>
-    <ng-container *ngIf="!_logisticaService.datosBusquedaListado">
-        <hr class="line">
-        <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw"></i>
+    <ng-container *ngIf="!_logisticaService.datosBusquedaListado ">
+        <hr class="line ">
+        <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw "></i>
     </ng-container>
-</div>
+</div>;

@@ -1,0 +1,36 @@
+import { Directive, ElementRef, Input, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appEnterFocus]'
+})
+export class KeytabDirective {
+
+  private el: ElementRef;   
+    @Input() onReturn: string;    
+    constructor(private _el: ElementRef) {
+        this.el = this._el;
+    }
+    
+    @HostListener('keydown', ['$event']) onKeyDown(e: any) {
+        if ((e.which === 13 || e.keyCode === 13)) { 
+            let index_activo: number;
+            let next_control_focus: any; 
+            const controles = document.querySelectorAll('[appEnterFocus]');                        
+            const element_active = e.srcElement;                            
+            e.preventDefault();            
+                        
+            Array.from(controles).forEach((element, index) => {
+                if (element === element_active) { index_activo = index; return; }
+            });
+            
+            next_control_focus = controles.item(index_activo + 1);            
+            if (next_control_focus) {
+                next_control_focus.focus();
+                return;
+            } else {
+                return;
+            }
+        }
+    }
+
+}

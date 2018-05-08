@@ -1,0 +1,181 @@
+<div class="mi-content-responsive animated fastIn">
+    <ng-container *ngIf="ver_listado; then lista; else pago"></ng-container>
+    <ng-template #lista>
+        <div class="row fadeIn fast">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Listado de productos</h5>
+                        </div>
+                        <div class="col-6">
+                            <div class="float-right">
+                                <!-- <label class="cursor">
+                                          <input type="checkbox" [checked]="isUtilizarCodigoBarra"  (change)="onChangeCheckCodeBar()">
+                                          <i class="fa fa-barcode" aria-hidden="true"></i>
+                                          <span class="font-13 text-info">Utilizar codigo de barras</span>
+                                      </label> -->
+                                <div class="custom-control custom-checkbox cursor">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1" [checked]="isUtilizarCodigoBarra" (change)="onChangeCheckCodeBar()">
+                                    <i class="fa fa-barcode" aria-hidden="true"></i>
+                                    <label class="custom-control-label cursor" for="customCheck1">Utilizar codigo de barras</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <thead>
+                            <th width="45%">Codigo de barras</th>
+                            <th width="8px">Cantidad</th>
+                            <th>Tipo</th>
+                            <th>Desc</th>
+                            <th width="14%">Total</th>
+                            <th width="5px"></th>
+                        </thead>
+                        <tr>
+                            <td>
+                                <ng-container *ngIf="isUtilizarCodigoBarra; then thenTemplate; else elseTemplate"></ng-container>
+                                <ng-template #thenTemplate>
+                                    <input [appResetControl]="resetForm" valorInicial='' [darFocus]="true" type="text" class="form-control form-control-sm" placeholder="Codigo de barras" (keyup.enter)="onChangeSelectProducto(txt_codigobarra.value)" #txt_codigobarra>
+                                    <p class="text-danger" *ngIf="!this.dtProductos">No se encontro ningun producto.</p>
+                                    <p class="text-info font-12" *ngIf="this.dtProductos">{{des_producto}}</p>
+                                </ng-template>
+                                <ng-template #elseTemplate>
+                                    <app-autocomplete name="producto" #parametro placeholder="Buscar..."></app-autocomplete>
+                                </ng-template>
+                            </td>
+                            <td><input appEnterFocus [appResetControl]="resetForm" valorInicial='1' type="number" class="form-control form-control-sm" min="0" value="1" (keyup)="calcularPrecioTotal()" (keyup.enter)="addProductoLista()" #txt_stock></td>
+                            <td>
+                                <select [appResetControl]="resetForm" valorInicial='0' class="form-control form-control-sm" (change)="onChangePrecio($event.target.value)">
+                                          <option value="P1">P1</option>
+                                          <option value="P2">P2</option>
+                                        </select>
+                            </td>
+                            <td>
+                                <select class="form-control form-control-sm" (change)="onChangeDesc($event.target.value)">
+                                          <option value="0">0.00</option>
+                                          <option value="1">1.00</option>
+                                          <option value="2">2.00</option>
+                                          <option value="3">3.00</option>
+                                          <option value="4">4.00</option>
+                                          <option value="5">5.00</option>
+                                        </select>
+                            </td>
+                            <td>
+                                <input type="number" disabled="true" class="form-control form-control-sm" #txt_total>
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-sm" (click)="addProductoLista()">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let item of dtProductosMostrar">
+                            <td>{{item.des_producto}}</td>
+                            <td>{{item.cantidad}}</td>
+                            <td>{{item.tipoprecio}}</td>
+                            <td>{{item.descuento | number:'1.2'}}</td>
+                            <td>{{item.total | number:'1.2' }}</td>
+                            <td>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <div class="col-7"></div>
+                        <div class="col-5">
+                            <div class="float-right text-right">
+                                <table width="100%">
+                                    <tr>
+                                        <td>Productos</td>
+                                        <td>{{sumaTotales['cantidad']}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Descuento</td>
+                                        <td>{{sumaTotales['descuento'] | number:'1.2'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Total
+                                        </td>
+                                        <td>
+                                            <h4>{{sumaTotales['total'] | number:'1.2'}}</h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-default"><i class="fa fa-download" aria-hidden="true"></i> Traer de preventa</button>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                <button appKeyClick="F9" class="btn btn-lg btn-success" [disabled]="!sumaTotales['total']" (click)="cambiarVista()"><i class="fa fa-arrow-right" aria-hidden="true"></i> [F9] Siguiente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #pago>
+        <!-- datos del cliente y datos de pago -->
+        <div class="row fadeIn fast">
+            <div class="col-md-12 card">
+                <div>
+                    <!-- <div class="card-header">
+                        <h5>Datos de pago</h5>
+                    </div> -->
+                    <div class="card-body">
+                        <div>
+                            <h5>Tipo de comprobante</h5>
+                            <div class="btn-group btn-group-toggle cursor" data-toggle="buttons">
+                                <label class="btn btn-option" *ngFor="let tipoc of dtTipoComprobante; let i= index;" [ngClass]="{'active': i==0}">
+                                    <input type="radio" autocomplete="off">{{tipoc.descripcion}}
+                                </label>
+                            </div>
+                            <hr class="line">
+
+                            <h5>Datos de pago</h5><br>
+                            <div class="mw-600">
+                                <app-registrar-pago [totalPagar]="170" (recolector)="datosTipoPago($event)"></app-registrar-pago>
+                            </div>
+                            <hr class="line"><br>
+
+                            <h5>Datos del cliente</h5><br>
+                            <div class="mw-600">
+                                <input appEnterFocus type="text" [(ngModel)]="dtCliente[0].dni" class="form-group form-control form-control-sm" placeholder="RUC / DNI" autocomplete="on" (keyup.enter)="buscarCliente(txtdni.value)" #txtdni>
+                                <!-- <app-autocomplete autocomplete-campo-mostrar="dni" autocomplete-class="form-group form-control form-control-sm text-uppercase" placeholder="DNI" [dataComplete]="dtClienteSelect"></app-autocomplete> -->
+                                <input appEnterFocus appUpperCase type="text" [(ngModel)]="dtCliente[0].nombre" class="form-group form-control form-control-sm " placeholder="Nombre / Razon social">
+                                <input appEnterFocus appUpperCase type="text" [(ngModel)]="dtCliente[0].direccion" class="form-group form-control form-control-sm" placeholder="Direccion">
+                            </div>
+                            <hr class="line"><br>
+
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-default" (click)="ver_listado=true"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    <button appEnterFocus class="btn btn-lg btn-success" [disabled]="!dtTipoPago['valido']" (click)="guardarVenta()"><i class="fa fa-check" aria-hidden="true"></i> [F10] Listo, finalizar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+</div>

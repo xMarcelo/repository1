@@ -1,0 +1,43 @@
+<table width="100%">
+    <tr *ngFor="let item of arrAdd; let i=index">
+        <ng-container *ngIf="arrAdd[i]">
+            <td style="width: 70%">
+                <select appEnterFocus class="form-control form-control-sm" #selTP [disabled]="arrAdd[i].queda" (change)="selectTP($event.target.value)">
+                    <option *ngFor="let item of dtTipoPago | filtrarArray: ['idtipopago', arrAdd[i].idvalidar, false]" [value]="item.idtipopago">{{item.descripcion}}</option>
+                </select>
+            </td>
+            <td style="width: 20%">
+                <input appEnterFocus type="number" class="form-control form-control-sm text-right" min="1" (value)="importeDiferencia" (keyup)="addImporte(i, importe.value)" #importe>
+            </td>
+            <td>
+                <ng-container *ngIf="!arrAdd[i].restar; then sumar; else restar"></ng-container>
+                <ng-template #sumar>
+                    <button class="btn btn-default btn-sm" [disabled]="importeDiferencia > -1" title="Agregar tipo de pago" (click)="addTipoPago(importe.value)">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                </ng-template>
+                <ng-template #restar>
+                    <button class="btn btn-danger btn-sm" title="Quitar" (click)="quitarTipoPago(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </ng-template>
+            </td>
+        </ng-container>
+    </tr>
+    <tr>
+        <td align="right">Importe recibido : </td>
+        <td align="right">{{importeTotal | number:'1.2'}}</td>
+    </tr>
+    <tr>
+        <td align="right">Importe a pagar : </td>
+        <td align="right">{{totalPagar | number:'1.2'}}</td>
+    </tr>
+    <tr>
+        <td align="right">Diferencia : </td>
+        <td align="right">{{importeDiferencia | number:'1.2'}}</td>
+    </tr>
+    <ng-container *ngIf="isSelecCredito">
+        <tr>
+            <td align="right">Fecha de pago : </td>
+            <td align="right"><input type="date" [min]="_funcionesService.fechaActualISO()" class="form-control form-control-sm text-right" (change)="fechaCredito()" #fechacredito></td>
+        </tr>
+    </ng-container>
+</table>

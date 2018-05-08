@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 
+// pipes
+import { PipesModule } from '../../pipes/pipes.module';
+
 
 // modulos
 import { SharedModule } from '../shared/shared.module';
@@ -22,11 +25,25 @@ import { RegisterComponent } from './login/register/register.component';
 import { UsuariosComponent } from './maestros/usuarios/usuarios.component';
 
 // controles
-import { DialogboxComponent } from '../control/dialogbox/dialogbox.component';
+// import { DialogboxComponent } from '../control/dialogbox/dialogbox.component';
 import { AutocompleteComponent } from '../control/autocomplete/autocomplete.component';
+import { RegistrarPagoComponent } from '../control/registrar-pago/registrar-pago.component';
+
+
 
 // rutas
 import { PAGES_ROUTING } from './pages.routes';
+import { DistribuicionComponent } from './logistica/distribuicion/distribuicion.component';
+import { VentaComponent } from './ventas/venta/venta.component';
+
+// directivas
+import { KeytabDirective } from '../../directive/keytab.directive';
+import { UppercaseDirective } from '../../directive/uppercase.directive';
+import { ResetcontrolDirective } from '../../directive/resetcontrol.directive';
+import { KeyclickDirective } from '../../directive/keyclick.directive';
+
+
+
 
 
 
@@ -39,10 +56,17 @@ import { PAGES_ROUTING } from './pages.routes';
         ListadoProductosComponent,
         LoginComponent,
         NopagefoundComponent,
-        DialogboxComponent,
+        // DialogboxComponent,
         AutocompleteComponent,
+        RegistrarPagoComponent,
         RegisterComponent,
-        UsuariosComponent
+        UsuariosComponent,
+        DistribuicionComponent,
+        VentaComponent,
+        KeytabDirective,
+        UppercaseDirective,
+        ResetcontrolDirective,
+        KeyclickDirective
     ],
     exports: [
         // PagesComponent
@@ -62,6 +86,7 @@ import { PAGES_ROUTING } from './pages.routes';
         NgbModule.forRoot(),
         SidebarModule.forRoot(),
         PAGES_ROUTING,
+        PipesModule
     ]
 })
 

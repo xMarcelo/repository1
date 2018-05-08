@@ -20,7 +20,7 @@ import { BreadcrumbsComponent } from './breadcrumbs.component';
         BreadcrumbsComponent
     ],
     imports: [
-        CommonModule,    
+        CommonModule,
         RouterModule
     ]
 })

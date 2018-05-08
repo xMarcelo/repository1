@@ -7,7 +7,14 @@ import {
   SiderbarService,
   UsuarioService,
   LoginGuardGuard,
-  UploadfileService} from './service.index';
+  UploadfileService,
+  PrintcodbarraService,
+  LogisticaAllService,
+  MaestrosService,
+  FuncionesService,
+  ErroresService,
+  VentasService  
+} from './service.index';
 
 @NgModule({
   imports: [
@@ -15,7 +22,8 @@ import {
   ],
   providers: [
     FrasesService, ObservablesService, LogisticaService, SiderbarService, UsuarioService,
-    LoginGuardGuard, UploadfileService
+    LoginGuardGuard, UploadfileService, PrintcodbarraService, LogisticaAllService, MaestrosService, FuncionesService,
+    ErroresService, VentasService
   ],
   declarations: []
 })

@@ -343,6 +343,22 @@
         font-size: 28px;
     }
     
+    .font-13 {
+        font-size: 13px;
+    }
+    
+    .font-12 {
+        font-size: 12px;
+    }
+    
+    .font-10 {
+        font-size: 10px;
+    }
+    
+    .font-9 {
+        font-size: 9px;
+    }
+    
     hr.blanco {
         background: #616161;
         width: 100%;
@@ -862,4 +878,38 @@
     
     .table-1 tr.font14>td {
         font-size: 0.8rem;
+    }
+    /* imagenes  */
+    
+    .img-size-content {
+        width: 100%;
+    }
+    
+    .no-visible {
+        display: none;
+        visibility: hidden;
+    }
+    /* fondos backgron */
+    
+    .backg-amarillo {
+        background: #ef9a9a;
+    }
+    
+    .btn-option {
+        background: #34374C;
+        color: #e0e0e0;
+        transition: 0.3s;
+    }
+    
+    .btn-option:hover {
+        background: #AF05AA;
+    }
+    
+    .btn-option.active {
+        background: #EA21A2;
+        transform: scale(1.1);
+    }
+    
+    .mw-600 {
+        max-width: 600px;
     }

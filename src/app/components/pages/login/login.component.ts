@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsuarioService } from '../../../services/service.index';
+import { UsuarioService, ErroresService } from '../../../services/service.index';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,9 +10,13 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public loading_icon: boolean= false;
-  constructor(private _usuarioService: UsuarioService, private router: Router) { }
+  public errores: any;
+  constructor(private _usuarioService: UsuarioService, private router: Router, private _erorrService: ErroresService) { }
 
   ngOnInit() {
+    this._erorrService.msj_erorr$.subscribe((res) => {
+      this.errores = res;
+    });
   }
 
   login(forma: NgForm) {
